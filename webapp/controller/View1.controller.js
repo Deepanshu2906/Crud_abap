@@ -51,20 +51,22 @@ sap.ui.define([
                 var Name = this.getView().byId("nameinput").getValue();
 
                 var materialName = this.getView().byId("deptinput").getValue();
-
+                var   date1String = this.getView().byId("id_date").getValue();
+                
                 var data = {
 
                     Ebeln: ID,
 
                     Waers: Name,
 
-                    Maktx: materialName
+                    Maktx: materialName,
+                    // Aedat: date1String
 
                 };
 
                 var odataModel = this.getView().getModel();
 
-                // console.log(data, odataModel);
+                console.log(data);
 
                 odataModel.create("/ZBTP_TEST_DATA", data, {
 
@@ -85,6 +87,34 @@ sap.ui.define([
                 });
 
             },
+           formatDateToCustomFormat:function(date) {
+                const months = [
+                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                ];
+            
+                const day = date.getDate();
+                const month = months[date.getMonth()];
+                const year = date.getFullYear();
+                const hours = date.getHours();
+                const minutes = date.getMinutes();
+                const seconds = date.getSeconds();
+                const timezoneOffset = date.getTimezoneOffset();
+                const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
+                const timezoneMinutes = Math.abs(timezoneOffset) % 60;
+                const timezoneSign = timezoneOffset < 0 ? '+' : '-';
+            
+                const timezoneString = `GMT${timezoneSign}${timezoneHours}:${timezoneMinutes}`;
+                
+                const formattedDate = `${day} ${month} ${year} ${hours}:${minutes}:${seconds} ${timezoneString} (India Standard Time)`;
+                return formattedDate;
+            },
+            
+            //  Example usage:
+            // const date = new Date('2023-10-23T05:30:00');
+            // const formattedDate = formatDateToCustomFormat(date);
+            // console.log(formattedDate);
+            
 
             updateData: function () {
 

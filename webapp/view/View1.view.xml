@@ -15,10 +15,10 @@
              <Label id="_IDGenLabel3" text="Maktx"></Label>
            </Column>
             <Column id="_IDGenColumn4" >
-             <Label id="_IDGenLabel4" text="Aedat"></Label>
+             <Label id="_IDGenLabel4" text="Belnr"></Label>
            </Column>
             <Column id="_IDGenColumn5" >
-             <Label id="_IDGenLabel5" text="Belnr"></Label>
+             <Label id="_IDGenLabel5" text="Aedat"></Label>
            </Column>
 
 
@@ -63,8 +63,10 @@
                 id="deptinput"
 
             />
+        <!-- <DatePicker id="id_date"></DatePicker> -->
+        <DateTimePicker id="id_date" ></DateTimePicker>
 
-            <VBox id="_IDGenHBox1" alignItems="Start" >
+            <HBox id="_IDGenHBox1" alignItems="Center" >
 
                 <Button
 
@@ -96,7 +98,7 @@
 
                 />
 
-            </VBox>
+            </HBox>
 
         </VBox>
     </Page>
