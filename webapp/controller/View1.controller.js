@@ -16,17 +16,17 @@ sap.ui.define([
 
         "use strict";
 
- 
+
 
         return Controller.extend("training1.controller.View1", {
 
             onInit: function () {
 
- 
+
 
             }
 
-            ,onNext: function(oEvent){
+            , onNext: function (oEvent) {
 
                 var oItem = oEvent.getSource();
 
@@ -36,21 +36,21 @@ sap.ui.define([
 
             },
 
- 
 
-            onClick:function(){
 
-               
+            onClick: function () {
+
+
 
             },
 
-            createData: function(){
+            createData: function () {
 
                 var ID = this.getView().byId("idinput").getValue();
 
                 var Name = this.getView().byId("nameinput").getValue();
 
-                var class1 = this.getView().byId("deptinput").getValue();
+                var materialName = this.getView().byId("deptinput").getValue();
 
                 var data = {
 
@@ -58,17 +58,17 @@ sap.ui.define([
 
                     Waers: Name,
 
-                    Maktx: class1
+                    Maktx: materialName
 
                 };
 
                 var odataModel = this.getView().getModel();
 
-                console.log(data, odataModel);
+                // console.log(data, odataModel);
 
                 odataModel.create("/ZBTP_TEST_DATA", data, {
 
-                    success: function(data, response){
+                    success: function (data, response) {
 
                         MessageBox.success("Data successfully created");
 
@@ -76,7 +76,7 @@ sap.ui.define([
 
                     },
 
-                    error: function(error){
+                    error: function (error) {
 
                         MessageBox.error("Error while creating the data");
 
@@ -86,95 +86,88 @@ sap.ui.define([
 
             },
 
-            updateData: function(){
+            updateData: function () {
 
                 var table1 = this.getView().byId("_IDGenTable1");
 
                 var selItem = table1.getSelectedItem();
 
-                var title = selItem.getTitle();
+                var idSelected = selItem.getBindingContextPath().slice(17, -2)
 
-                var description = selItem.getDescription();
+                // console.log(idSelected, typeof idSelected);
 
-                var Name = this.getView().byId("nameinput").getValue();
+                // var title = selItem.getTitle();
+
+                // var description = selItem.getDescription();
+
+                var toUpdate = this.getView().byId("deptinput").getValue();
 
                 var payload = {
 
-                    ID: parseInt(title),
+                    Ebeln: idSelected,
 
-                    Name: Name
+                    Maktx: toUpdate
 
                 };
+                console.log(payload);
 
- 
 
-                var path = "/Categories(" + title + ")";
+
+                var path = "/ZBTP_TEST_DATA('" + idSelected + "')";
 
                 var odataModel = this.getView().getModel();
 
                 // @ts-ignore
 
-                odataModel.update(path,payload,{
+                odataModel.update(path, payload, {
 
-                    success: function(data,response){
+                    success: function (data, response) {
 
                         MessageBox.success("Successfully Updated");
+                        odataModel.refresh();
+
 
                     },
 
-                    error: function(error){
+                    error: function (error) {
 
-                        MessageBox.error("Error while updating the data");
+                        MessageBox.error("Error while updating the data"+error);
 
                     }
 
                 });
 
             },
+            // delete function
 
-            selectedEmpItem:function(oEvent){
 
-                // var list= oEvent.getParameters('listitem')
+            deleteData: function () {
+                var table1 = this.getView().byId("_IDGenTable1");
 
-                // console.log(list);
+                var selItem = table1.getSelectedItem();
+                var idSelected = selItem.getBindingContextPath().slice(17, -2)
 
-                var oTable = oEvent.getSource();
+                // console.log(idSelected, typeof idSelected);
 
- 
+                var path = "/ZBTP_TEST_DATA('" + idSelected + "')"; ///Categories(3);
+                var odataModel = this.getView().getModel();
+                // console.log(path);
 
-              var aSelectedItem = oTable.getSelectedItem();
+                odataModel.remove(path, {
 
-              console.log(aSelectedItem);
+                    success: function (data, response) {
 
- 
+                        MessageBox.success("Deleted data");
 
-             
-
- 
-
-              aSelectedTravelIds = aSelectedItem.map(function(oSelectedItem) {
-
- 
-
-                  return oSelectedItem.getBindingContext().getProperty("EmpId")
-
- 
-
-              });
-
- 
-
-             console.log(aSelectedTravelIds);
-
- 
-
-              // console.log("Selected Travel IDs: " + aSelectedTravelIds.join(","));
-
- 
-
-            //   return aSelectedTravelIds;
-
+                        odataModel.refresh();
+                    },
+                    error: function (error) {
+                        MessageBox.error("Deletion failed"+error);
+                    }
+                })
             }
+
+            
 
         });
 
