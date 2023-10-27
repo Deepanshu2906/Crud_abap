@@ -87,6 +87,7 @@ sap.ui.define([
                 });
 
             },
+           
            formatDateToCustomFormat:function(date) {
                 const months = [
                     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -115,7 +116,24 @@ sap.ui.define([
             // const formattedDate = formatDateToCustomFormat(date);
             // console.log(formattedDate);
             
-
+            getSelectItem : function(oEvent){
+                let oView = this.getView();
+                // console.log("hello");
+                var oTable = oEvent.getSource();
+                var aSelectedItem = oTable.getSelectedItem();
+                let val1 = aSelectedItem.getBindingContext().getProperty('Ebeln');
+                let val2 = aSelectedItem.getBindingContext().getProperty('Waers');
+                let val3 = aSelectedItem.getBindingContext().getProperty('Maktx');
+                let val4 = aSelectedItem.getBindingContext().getProperty('Aedat');
+                
+                console.log(val1, val2, val3, val4);
+                oView.byId("idinput").setValue(val1)
+                oView.byId("nameinput").setValue(val2)
+                oView.byId("deptinput").setValue(val3)
+                oView.byId("id_date").setValue(val4)
+                
+                     
+              },
             updateData: function () {
 
                 var table1 = this.getView().byId("_IDGenTable1");
@@ -126,9 +144,6 @@ sap.ui.define([
 
                 // console.log(idSelected, typeof idSelected);
 
-                // var title = selItem.getTitle();
-
-                // var description = selItem.getDescription();
 
                 var toUpdate = this.getView().byId("deptinput").getValue();
 

@@ -3,7 +3,7 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
     
-        <Table id="_IDGenTable1" items="{/ZBTP_TEST_DATA}" mode="SingleSelect" selectionChange="">
+        <Table id="_IDGenTable1" items="{/ZBTP_TEST_DATA}" mode="SingleSelect" selectionChange="getSelectItem">
            <columns>
            <Column id="_IDGenColumn1" >
              <Label id="_IDGenLabel1" text="Ebeln"></Label>
@@ -38,7 +38,7 @@
            </cells>
            </ColumnListItem>
         </Table>
-        <Panel >
+        <Panel id="_IDGenPanel1" >
         <VBox id="_IDGenVBox1">
             <Label id="_IDGenLabel6" text="Enter Ebeln :" labelFor="idinput"></Label>
             <Input
@@ -70,11 +70,11 @@
                 width="45%"
 
             />
-            <Label id="_IDGenLabel9" text="Selet Date  and Time :" labelFor="id_date"></Label>
+            <Label id="_IDGenLabel9" text="Select Date  and Time :" labelFor="id_date"></Label>
         
              <DateTimePicker 
                  id="id_date" 
-                   width="35%"
+                   width="50%"
         >
         
         </DateTimePicker>
