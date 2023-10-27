@@ -135,7 +135,9 @@ sap.ui.define([
                      
               },
             updateData: function () {
-
+                
+                let oview = this.getView();
+                
                 var table1 = this.getView().byId("_IDGenTable1");
 
                 var selItem = table1.getSelectedItem();
@@ -167,9 +169,13 @@ sap.ui.define([
                 odataModel.update(path, payload, {
 
                     success: function (data, response) {
-
+                        
                         MessageBox.success("Successfully Updated");
                         odataModel.refresh();
+                        oview.byId("idinput").setValue("")
+                        oview.byId("nameinput").setValue("")
+                        oview.byId("deptinput").setValue("")
+                        oview.byId("id_date").setValue("")
 
 
                     },
