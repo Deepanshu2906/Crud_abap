@@ -38,35 +38,48 @@
            </cells>
            </ColumnListItem>
         </Table>
+        <Panel >
         <VBox id="_IDGenVBox1">
-
+            <Label id="_IDGenLabel6" text="Enter Ebeln :" labelFor="idinput"></Label>
             <Input
 
                 placeholder="Enter Ebeln"
 
                 id="idinput"
+                width="30%"
 
             />
-
+            <Label id="_IDGenLabel7" text="Enter Waers :" labelFor="nameinput"></Label>
+             
             <Input
 
                 placeholder="Enter Waers"
 
                 id="nameinput"
+                 width="40%"
 
-            />
+            /> 
+
+            <Label id="_IDGenLabel8" text="Enter Maktx :" labelFor="deptinput"></Label>
 
             <Input
 
                 placeholder="Enter Maktx"
 
                 id="deptinput"
+                width="45%"
 
             />
-        <!-- <DatePicker id="id_date"></DatePicker> -->
-        <DateTimePicker id="id_date" ></DateTimePicker>
+            <Label id="_IDGenLabel9" text="Selet Date  and Time :" labelFor="id_date"></Label>
+        
+             <DateTimePicker 
+                 id="id_date" 
+                   width="35%"
+        >
+        
+        </DateTimePicker>
 
-            <HBox id="_IDGenHBox1" alignItems="Center" >
+            <HBox id="_IDGenHBox1" alignItems="Center" justifyContent="SpaceAround"   width="50%" height="80px">
 
                 <Button
 
@@ -75,6 +88,7 @@
                     text="Create"
 
                     press="createData"
+                    
 
                 />
 
@@ -85,6 +99,7 @@
                     text="Update"
 
                     press="updateData"
+                    type="Attention"
 
                 />
 
@@ -95,11 +110,13 @@
                     text="Delete"
 
                     press="deleteData"
+                    type="Negative"
 
                 />
 
             </HBox>
 
         </VBox>
+        </Panel>
     </Page>
 </mvc:View>
