@@ -16,7 +16,7 @@ sap.ui.define([
 
         "use strict";
 
-
+        var reset1,resetValue;
 
         return Controller.extend("training1.controller.View1", {
 
@@ -36,45 +36,55 @@ sap.ui.define([
 
             },
 
-
-
-            onClick: function () {
-
-
-
+            reset1 : function (){
+                let oview = this.getView();
+                oview.byId("idinput").setValue("")
+                oview.byId("nameinput").setValue("")
+                oview.byId("deptinput").setValue("")
+                oview.byId("idProject").setValue("")
+                oview.byId("id_date").setValue("")
             },
-
             createData: function () {
 
                 var ID = this.getView().byId("idinput").getValue();
 
-                var Name = this.getView().byId("nameinput").getValue();
+                var deptname = this.getView().byId("deptinput").getValue();
 
-                var materialName = this.getView().byId("deptinput").getValue();
-                var   date1String = this.getView().byId("id_date").getValue();
+                var empName = this.getView().byId("nameinput").getValue();
+
+                var project = this.getView().byId("idProject").getValue();
+
+                var   inputDateString = this.getView().byId("id_date").getValue();
+                // Convert to a JavaScript Date object
+                const date = new Date(inputDateString);
                 
                 var data = {
-
+                    
                     Ebeln: ID,
-
-                    Waers: Name,
-
-                    Maktx: materialName,
-                    // Aedat: date1String
-
+                    
+                    Waers: deptname,
+                    
+                    Maktx: empName,
+                    Belnr : project,
+                    Aedat: date
+                    
                 };
+                // console.log(data);
+            
 
                 var odataModel = this.getView().getModel();
 
-                console.log(data);
 
                 odataModel.create("/ZBTP_TEST_DATA", data, {
 
-                    success: function (data, response) {
+                    success:  (data, response) =>{
 
+                        
                         MessageBox.success("Data successfully created");
-
+                        
                         odataModel.refresh();
+                        
+                        this.reset1();
 
                     },
 
@@ -82,83 +92,64 @@ sap.ui.define([
 
                         MessageBox.error("Error while creating the data");
 
+                       
                     }
 
                 });
 
             },
-           
-           formatDateToCustomFormat:function(date) {
-                const months = [
-                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                ];
-            
-                const day = date.getDate();
-                const month = months[date.getMonth()];
-                const year = date.getFullYear();
-                const hours = date.getHours();
-                const minutes = date.getMinutes();
-                const seconds = date.getSeconds();
-                const timezoneOffset = date.getTimezoneOffset();
-                const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
-                const timezoneMinutes = Math.abs(timezoneOffset) % 60;
-                const timezoneSign = timezoneOffset < 0 ? '+' : '-';
-            
-                const timezoneString = `GMT${timezoneSign}${timezoneHours}:${timezoneMinutes}`;
-                
-                const formattedDate = `${day} ${month} ${year} ${hours}:${minutes}:${seconds} ${timezoneString} (India Standard Time)`;
-                return formattedDate;
-            },
-            
-            //  Example usage:
-            // const date = new Date('2023-10-23T05:30:00');
-            // const formattedDate = formatDateToCustomFormat(date);
-            // console.log(formattedDate);
             
             getSelectItem : function(oEvent){
+
                 let oView = this.getView();
                 // console.log("hello");
                 var oTable = oEvent.getSource();
+
                 var aSelectedItem = oTable.getSelectedItem();
+
                 let val1 = aSelectedItem.getBindingContext().getProperty('Ebeln');
                 let val2 = aSelectedItem.getBindingContext().getProperty('Waers');
                 let val3 = aSelectedItem.getBindingContext().getProperty('Maktx');
-                let val4 = aSelectedItem.getBindingContext().getProperty('Aedat');
+                let val4 = aSelectedItem.getBindingContext().getProperty('Belnr');
+                let val5 = aSelectedItem.getBindingContext().getProperty('Aedat');
                 
-                console.log(val1, val2, val3, val4);
+                // console.log(val1, val2, val3, val4,val5);
+                
                 oView.byId("idinput").setValue(val1)
-                oView.byId("nameinput").setValue(val2)
-                oView.byId("deptinput").setValue(val3)
-                oView.byId("id_date").setValue(val4)
+                oView.byId("deptinput").setValue(val2)
+                oView.byId("nameinput").setValue(val3)
+                oView.byId("idProject").setValue(val4);
+                oView.byId("id_date").setValue(val5)
                 
                      
               },
             updateData: function () {
                 
-                let oview = this.getView();
-                
+                 let oview = this.getView();
                 var table1 = this.getView().byId("_IDGenTable1");
 
                 var selItem = table1.getSelectedItem();
 
-                var idSelected = selItem.getBindingContextPath().slice(17, -2)
+                let idSelected = selItem.getBindingContextPath().slice(17, -2)
 
                 // console.log(idSelected, typeof idSelected);
 
+                let updatedDept = this.getView().byId("deptinput").getValue();
+                let updatedName = this.getView().byId("nameinput").getValue();
+                let updatedProject = this.getView().byId("idProject").getValue();
+                let updatedDate = new Date (this.getView().byId("id_date").getValue());
 
-                var toUpdate = this.getView().byId("deptinput").getValue();
+                let payload = {
 
-                var payload = {
+                    Maktx: updatedName,
 
-                    Ebeln: idSelected,
+                    Waers: updatedDept,
 
-                    Maktx: toUpdate
+                    Belnr: updatedProject,
+                    Aedat: updatedDate
 
                 };
                 console.log(payload);
-
-
 
                 var path = "/ZBTP_TEST_DATA('" + idSelected + "')";
 
@@ -168,21 +159,20 @@ sap.ui.define([
 
                 odataModel.update(path, payload, {
 
-                    success: function (data, response) {
+                    success: (data, response) =>{
                         
                         MessageBox.success("Successfully Updated");
-                        odataModel.refresh();
-                        oview.byId("idinput").setValue("")
-                        oview.byId("nameinput").setValue("")
-                        oview.byId("deptinput").setValue("")
-                        oview.byId("id_date").setValue("")
 
+                        odataModel.refresh();
+                           this.reset1()
+                 
 
                     },
 
                     error: function (error) {
 
                         MessageBox.error("Error while updating the data"+error);
+                     
 
                     }
 
@@ -206,17 +196,21 @@ sap.ui.define([
 
                 odataModel.remove(path, {
 
-                    success: function (data, response) {
+                    success: (data, response) =>{
 
                         MessageBox.success("Deleted data");
 
                         odataModel.refresh();
+
+                        this.reset1()
+                        
+                       
                     },
                     error: function (error) {
                         MessageBox.error("Deletion failed"+error);
                     }
                 })
-            }
+            },
 
             
 
