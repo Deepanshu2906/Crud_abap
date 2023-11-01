@@ -1,9 +1,9 @@
-<mvc:View controllerName="training1.controller.View1"
+<mvc:View xmlns:tnt="sap.tnt" xmlns:launchpad="sap.ushell.ui.launchpad" controllerName="training1.controller.View1"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-    
-        <Table id="_IDGenTable1" items="{/ZBTP_TEST_DATA}" mode="SingleSelect" selectionChange="getSelectItem">
+    <Page id="page" title="{i18n>title}" titleAlignment="Center">
+        <Panel id="_IDGenPanel2"  >
+        <Table id="_IDGenTable1" items="{/ZBTP_TEST_DATA}"  mode="SingleSelect" selectionChange="getSelectItem" growing="true" growingThreshold="10" growingTriggerText="Load More"   >
            <columns>
            <Column id="_IDGenColumn1" >
              <Label id="_IDGenLabel1" text="Employee ID"></Label>
@@ -38,8 +38,11 @@
            </cells>
            </ColumnListItem>
         </Table>
+        </Panel>
         <Panel id="_IDGenPanel1" >
         <VBox id="_IDGenVBox1">
+          
+           <Label id="_IDGenLabel91" text="Fill the details to perform Create and Update opeartion:-" design="Bold"></Label>
             <Label id="_IDGenLabel6" text="Employee ID :" labelFor="idinput"></Label>
             <Input
 
