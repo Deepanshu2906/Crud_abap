@@ -35,6 +35,14 @@ sap.ui.define([
                 oRouter.navTo("RouteView2")
 
             },
+            formatDate: function (date) {
+                if (date instanceof Date) {
+                    const options = { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' };
+                    return date.toLocaleDateString(undefined, options);
+                } else {
+                    return date; // Handle non-Date values gracefully if needed
+                }
+            },
 
             reset1 : function (){
                 let oview = this.getView();
@@ -57,7 +65,8 @@ sap.ui.define([
                 var   inputDateString = this.getView().byId("id_date").getValue();
                 // Convert to a JavaScript Date object
                 const date = new Date(inputDateString);
-                
+               
+       
                 var data = {
                     
                     Ebeln: ID,
@@ -149,7 +158,7 @@ sap.ui.define([
                     Aedat: updatedDate
 
                 };
-                console.log(payload);
+                // console.log(payload);
 
                 var path = "/ZBTP_TEST_DATA('" + idSelected + "')";
 

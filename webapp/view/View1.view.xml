@@ -31,7 +31,7 @@
            <Text id="_IDGenText3" text="{Maktx}"></Text>
            <Text id="_IDGenTex2" text="{Waers}"></Text>
            <Text id="_IDGenText4" text="{Belnr}"></Text>
-           <Text id="_IDGenText5" text="{Aedat}"></Text>
+           <Text id="_IDGenText5" text="{path: 'Aedat', formatter: '.formatDate'}"></Text>
 
 
           
@@ -42,7 +42,7 @@
         <Panel id="_IDGenPanel1" >
         <VBox id="_IDGenVBox1">
           
-           <Label id="_IDGenLabel91" text="Fill the details to perform Create and Update opeartion:-" design="Bold"></Label>
+           <Label id="_IDGenLabel91" text="Fill the details to perform Create and Update operations:-" design="Bold"></Label>
             <Label id="_IDGenLabel6" text="Employee ID :" labelFor="idinput"></Label>
             <Input
 
